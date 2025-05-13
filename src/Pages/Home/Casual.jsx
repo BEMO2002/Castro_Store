@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { FaShoppingCart, FaSpinner } from "react-icons/fa";
 import { GiClothes } from "react-icons/gi";
 import { MdOutlineInventory2, MdErrorOutline } from "react-icons/md";
-
+import { useNavigate } from "react-router-dom";
 function MensSuits() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -35,7 +35,9 @@ function MensSuits() {
 
     fetchProducts();
   }, []);
-
+  const handleDetailClick = (id) => {
+    navigate(`/details/${id}`);
+  };
   if (loading)
     return (
       <div className="min-h-[50vh] flex flex-col items-center justify-center">
@@ -72,6 +74,7 @@ function MensSuits() {
           >
             <div className="relative h-64 overflow-hidden group">
               <img
+                onClick={() => handleDetailClick(product.id)}
                 src={product.productImageStatus}
                 alt={product.productName}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

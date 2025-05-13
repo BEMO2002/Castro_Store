@@ -1,18 +1,44 @@
 import React, { useState, useEffect } from "react";
-import { FaShoppingCart, FaSpinner } from "react-icons/fa";
+import { FaShoppingCart, FaSpinner, FaSearch } from "react-icons/fa";
 import { GiClothes } from "react-icons/gi";
 import { MdOutlineInventory2, MdErrorOutline } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 function Girls() {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchParams, setSearchParams] = useState({
+    keyword: "",
+    minPrice: "",
+    maxPrice: "",
+  });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         console.log("Fetching products from API...");
-        const response = await fetch("http://localhost:8080/api/products");
+        let url = "http://localhost:8080/api/products";
+
+        if (
+          searchParams.keyword ||
+          searchParams.minPrice ||
+          searchParams.maxPrice
+        ) {
+          const params = new URLSearchParams();
+          if (searchParams.keyword)
+            params.append("keyword", searchParams.keyword);
+          if (searchParams.minPrice)
+            params.append("minPrice", searchParams.minPrice);
+          if (searchParams.maxPrice)
+            params.append("maxPrice", searchParams.maxPrice);
+
+          url = `http://localhost:8080/api/products/search?${params.toString()}`;
+        }
+
+        const response = await fetch(url);
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -22,6 +48,7 @@ function Girls() {
         console.log("API Response:", data);
 
         setProducts(data);
+        setFilteredProducts(data);
       } catch (err) {
         console.error("Error fetching products:", err);
         setError(err.message);
@@ -32,7 +59,29 @@ function Girls() {
     };
 
     fetchProducts();
-  }, []);
+  }, [searchParams]);
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    setSearchParams({
+      ...searchParams,
+      keyword: e.target.keyword.value,
+      minPrice: e.target.minPrice.value,
+      maxPrice: e.target.maxPrice.value,
+    });
+  };
+
+  const handleResetFilters = () => {
+    setSearchParams({
+      keyword: "",
+      minPrice: "",
+      maxPrice: "",
+    });
+  };
+
+  const handleDetailClick = (id) => {
+    navigate(`/details/${id}`);
+  };
 
   if (loading)
     return (
@@ -62,14 +111,68 @@ function Girls() {
         </p>
       </div>
 
+      <div className="mb-8 p-4 bg-gray-50 rounded-lg">
+        <form
+          onSubmit={handleSearch}
+          className="flex flex-col md:flex-row gap-4"
+        >
+          <div className="flex-1 relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <FaSearch className="text-gray-400" />
+            </div>
+            <input
+              type="text"
+              name="keyword"
+              placeholder="Search products..."
+              className="pl-10 w-full p-2 border border-gray-300 rounded-md"
+              defaultValue={searchParams.keyword}
+            />
+          </div>
+
+          <div className="flex gap-4">
+            <input
+              type="number"
+              name="minPrice"
+              placeholder="Min price"
+              className="w-24 p-2 border border-gray-300 rounded-md"
+              defaultValue={searchParams.minPrice}
+            />
+
+            <input
+              type="number"
+              name="maxPrice"
+              placeholder="Max price"
+              className="w-24 p-2 border border-gray-300 rounded-md"
+              defaultValue={searchParams.maxPrice}
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
+          >
+            Search
+          </button>
+
+          <button
+            type="button"
+            onClick={handleResetFilters}
+            className="px-4 py-2 bg-white text-black border border-gray-300 rounded-md hover:bg-gray-100 transition-colors"
+          >
+            Reset
+          </button>
+        </form>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <div
             key={product.id}
             className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100 flex flex-col"
           >
             <div className="relative h-64 overflow-hidden group">
               <img
+                onClick={() => handleDetailClick(product.id)}
                 src={product.productImageStatus}
                 alt={product.productName}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -120,15 +223,30 @@ function Girls() {
           </div>
         ))}
       </div>
-      {products.length === 0 && !loading && (
+
+      {filteredProducts.length === 0 && !loading && (
         <div className="text-center py-20">
           <GiClothes className="text-5xl text-gray-400 mx-auto mb-4" />
           <h3 className="text-xl font-medium text-gray-900 mb-2">
-            No jackets available
+            No products found
           </h3>
           <p className="text-gray-600">
-            We couldn't find any products in this category.
+            {searchParams.keyword ||
+            searchParams.minPrice ||
+            searchParams.maxPrice
+              ? "No products match your search criteria."
+              : "We couldn't find any products in this category."}
           </p>
+          {(searchParams.keyword ||
+            searchParams.minPrice ||
+            searchParams.maxPrice) && (
+            <button
+              onClick={handleResetFilters}
+              className="mt-4 px-4 py-2 bg-black text-white rounded-md"
+            >
+              Clear filters
+            </button>
+          )}
         </div>
       )}
     </div>
