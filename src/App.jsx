@@ -11,6 +11,7 @@ import Boys from "./Pages/Boys";
 import Girls from "./Pages/Girls";
 import ProductList from "./Pages/products";
 import Details from "./Pages/Details";
+import NotFound from "./Pages/NotFound";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/girl" element={<Girls />} />
           <Route path="/All" element={<ProductList />} />
           <Route path="/details/:id" element={<Details />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />

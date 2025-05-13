@@ -3,7 +3,7 @@ import { FaShoppingCart, FaSpinner, FaSearch } from "react-icons/fa";
 import { GiClothes } from "react-icons/gi";
 import { MdOutlineInventory2, MdErrorOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-
+import notfound from "../assets/Categories/notfound.webp";
 function Girls() {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -225,8 +225,8 @@ function Girls() {
       </div>
 
       {filteredProducts.length === 0 && !loading && (
-        <div className="text-center py-20">
-          <GiClothes className="text-5xl text-gray-400 mx-auto mb-4" />
+        <div className="text-center  py-20">
+          <img src={notfound} alt="" className="mx-auto" />
           <h3 className="text-xl font-medium text-gray-900 mb-2">
             No products found
           </h3>

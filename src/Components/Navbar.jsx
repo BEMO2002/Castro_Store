@@ -107,7 +107,9 @@ function Navbar() {
 
       <div className="flex items-center gap-5">
         <FaSearch className="text-xl hidden sm:block" />
-        <RiShoppingCartLine className="text-xl font-bold hidden sm:block" />
+        <Link to="/cart">
+          <RiShoppingCartLine className="text-xl font-bold hidden sm:block hover:text-gray-600 transition-colors" />
+        </Link>
 
         <div className="relative user-menu">
           <div
@@ -182,7 +184,7 @@ function Navbar() {
                   transition={{ delay: 0.1 }}
                 >
                   <Link
-                    to="/Rent"
+                    to="/All"
                     className="text-black link hover:text-primary transition-all block w-full text-center py-2 px-4"
                     onClick={() => setMobileMenuOpen(false)}
                   >
@@ -208,11 +210,11 @@ function Navbar() {
                   transition={{ delay: 0.2 }}
                 >
                   <Link
-                    to="./Export"
+                    to="./boy"
                     className="text-black link hover:text-primary transition-all block w-full text-center py-2 px-4"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    Export
+                    Boys
                   </Link>
                 </motion.li>
                 <motion.li
@@ -221,11 +223,11 @@ function Navbar() {
                   transition={{ delay: 0.25 }}
                 >
                   <Link
-                    to="/Faq"
+                    to="/girl"
                     className="text-black link hover:text-primary transition-all block w-full text-center py-2 px-4"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    Faq
+                    Girls
                   </Link>
                 </motion.li>
                 <motion.li
@@ -248,7 +250,9 @@ function Navbar() {
                   transition={{ delay: 0.35 }}
                 >
                   <FaSearch className="text-xl sm:hidden" />
-                  <RiShoppingCartLine className="text-xl font-bold sm:hidden" />
+                  <Link to="/cart">
+                    <RiShoppingCartLine className="text-xl font-bold sm:hidden hover:text-gray-600 transition-colors" />
+                  </Link>
                 </motion.li>
               </ul>
             </motion.div>
