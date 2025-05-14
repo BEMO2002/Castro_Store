@@ -3,12 +3,16 @@ import { FaShoppingCart, FaSpinner, FaSearch } from "react-icons/fa";
 import { GiClothes } from "react-icons/gi";
 import { MdOutlineInventory2, MdErrorOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import notfound from "../assets/Categories/notfound.webp";
 function Girls() {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [loadingProducts, setLoadingProducts] = useState({});
+  const [cartError, setCartError] = useState(null);
   const [searchParams, setSearchParams] = useState({
     keyword: "",
     minPrice: "",
@@ -83,6 +87,47 @@ function Girls() {
     navigate(`/details/${id}`);
   };
 
+  const handleAddToCart = async (productId) => {
+    try {
+      setLoadingProducts(prev => ({ ...prev, [productId]: true }));
+      setCartError(null);
+      
+      const response = await fetch('http://localhost:8080/api/cart/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ productId }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add item to cart');
+      }
+
+      toast.success('Item added to cart successfully!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    } catch (err) {
+      console.error('Error adding to cart:', err);
+      setCartError(err.message);
+      toast.error('Failed to add item to cart. Please try again.', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    } finally {
+      setLoadingProducts(prev => ({ ...prev, [productId]: false }));
+    }
+  };
+
   if (loading)
     return (
       <div className="min-h-[50vh] flex flex-col items-center justify-center">
@@ -102,6 +147,7 @@ function Girls() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-40">
+      <ToastContainer />
       <div className="text-center mb-12">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
           Girl's Causal Collection
@@ -215,9 +261,17 @@ function Girls() {
                 </p>
               )}
 
-              <button className="w-full bg-black text-white py-2.5 rounded-md hover:bg-primary transition-colors duration-300 font-medium flex items-center justify-center">
-                <FaShoppingCart className="mr-2" />
-                Add to Cart
+              <button 
+                onClick={() => handleAddToCart(product.id)}
+                disabled={loadingProducts[product.id]}
+                className="w-full bg-black text-white py-2.5 rounded-md hover:bg-primary transition-colors duration-300 font-medium flex items-center justify-center"
+              >
+                {loadingProducts[product.id] ? (
+                  <FaSpinner className="animate-spin mr-2" />
+                ) : (
+                  <FaShoppingCart className="mr-2" />
+                )}
+                {loadingProducts[product.id] ? 'Adding...' : 'Add to Cart'}
               </button>
             </div>
           </div>

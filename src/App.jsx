@@ -12,6 +12,7 @@ import Girls from "./Pages/Girls";
 import ProductList from "./Pages/products";
 import Details from "./Pages/Details";
 import NotFound from "./Pages/NotFound";
+import Cart from "./Pages/Cart";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/girl" element={<Girls />} />
           <Route path="/All" element={<ProductList />} />
           <Route path="/details/:id" element={<Details />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="*" element={<NotFound />} />
         </Route>
         <Route path="/signin" element={<Signin />} />
