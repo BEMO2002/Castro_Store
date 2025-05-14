@@ -72,10 +72,10 @@ function Navbar() {
           </li>
           <li>
             <Link
-              to="/whyCastro"
+              to="/service"
               className="text-black link hover:text-primary transition-all"
             >
-              Why Castro?
+              Our Services
             </Link>
           </li>
           <li>

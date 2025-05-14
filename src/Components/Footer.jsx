@@ -13,16 +13,17 @@ const Footer = () => {
     <footer className="bg-gray-900 text-white pt-12 pb-6">
       <div className="container mx-auto px-4">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
           {/* About Section */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-1">
             <h3 className="text-xl font-bold mb-4 flex items-center">
               <span className="w-3 h-6 bg-primary mr-2"></span>
               CASTRO
             </h3>
             <p className="text-gray-400 mb-4">
-              Premium men's fashion and accessories. We bring you the latest
-              trends with exceptional quality and craftsmanship.
+              Premium men's fashion and accessories.
+              <br /> We bring you the latest trends with <br />
+              exceptional quality and craftsmanship.
             </p>
             <div className="flex space-x-4">
               <a
@@ -58,129 +59,140 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">QUICK LINKS</h3>
-            <ul className="space-y-2">
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Home
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Shop
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </div>
+          {/* Links and Contact Container */}
+          <div className="lg:col-span-2">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Quick Links */}
+              <div>
+                <h3 className="text-lg font-semibold mb-4">QUICK LINKS</h3>
+                <ul className="space-y-2">
+                  <li>
+                    <a
+                      href="#"
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      Home
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      Shop
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      About Us
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      Blog
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      Contact
+                    </a>
+                  </li>
+                </ul>
+              </div>
 
-          {/* Customer Service */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">CUSTOMER SERVICE</h3>
-            <ul className="space-y-2">
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  My Account
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Order Tracking
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Wishlist
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Returns
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  FAQs
-                </a>
-              </li>
-            </ul>
-          </div>
+              {/* Customer Service */}
+              <div>
+                <h3 className="text-lg font-semibold mb-4">CUSTOMER SERVICE</h3>
+                <ul className="space-y-2">
+                  <li>
+                    <a
+                      href="#"
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      My Account
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      Order Tracking
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      Wishlist
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      Returns
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      FAQs
+                    </a>
+                  </li>
+                </ul>
+              </div>
 
-          {/* Contact Info */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">CONTACT US</h3>
-            <ul className="space-y-3">
-              <li className="flex items-start">
-                <MdLocationOn className="mt-1 mr-2 text-primary" size={18} />
-                <span className="text-gray-400">
-                  123 Fashion Street, Style District, New York, NY 10001
-                </span>
-              </li>
-              <li className="flex items-center">
-                <MdEmail className="mr-2 text-primary" size={18} />
-                <a
-                  href="mailto:info@castro.com"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  info@castro.com
-                </a>
-              </li>
-              <li className="flex items-center">
-                <MdPhone className="mr-2 text-primary" size={18} />
-                <a
-                  href="tel:+1234567890"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  +1 (234) 567-890
-                </a>
-              </li>
-            </ul>
+              {/* Contact Info */}
+              <div>
+                <h3 className="text-lg font-semibold mb-4">CONTACT US</h3>
+                <ul className="space-y-3">
+                  <li className="flex items-start">
+                    <MdLocationOn
+                      className="mt-1 mr-2 text-primary"
+                      size={18}
+                    />
+                    <span className="text-gray-400">
+                      123 Fashion Street, Style District, New York, NY 10001
+                      <br />
+                    </span>
+                  </li>
+                  <li className="flex items-center">
+                    <MdEmail className="mr-2 text-primary" size={18} />
+                    <a
+                      href="mailto:info@castro.com"
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      info@castro.com
+                      <br />
+                    </a>
+                  </li>
+                  <li className="flex items-center">
+                    <MdPhone className="mr-2 text-primary" size={18} />
+                    <a
+                      href="tel:+1234567890"
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      +1 (234) 567-890
+                      <br />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -209,7 +221,7 @@ const Footer = () => {
         {/* Bottom Footer */}
         <div className="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center">
           <div className="text-gray-400 text-sm mb-4 md:mb-0">
-            &copy; {new Date().getFullYear()} Castro. All rights reserved.
+            © {new Date().getFullYear()} Castro. All rights reserved.
           </div>
           <div className="flex space-x-6">
             <a

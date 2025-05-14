@@ -13,6 +13,8 @@ import ProductList from "./Pages/products";
 import Details from "./Pages/Details";
 import NotFound from "./Pages/NotFound";
 import Cart from "./Pages/Cart";
+import ContactUs from "./Pages/ContactUs";
+import OurServices from "./Pages/OurServices";
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
           <Route path="/details/:id" element={<Details />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="/service" element={<OurServices />} />
         </Route>
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
