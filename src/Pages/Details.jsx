@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { FaShoppingCart, FaStar, FaRegStar, FaArrowLeft } from "react-icons/fa";
 import { MdOutlineInventory2, MdErrorOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-
+import { ToastContainer, toast } from "react-toastify";
 function Details() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -11,6 +11,8 @@ function Details() {
   const [error, setError] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [loadingProducts, setLoadingProducts] = useState({});
+  const [cartError, setCartError] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -37,18 +39,6 @@ function Details() {
   }, [id]);
   console.log("Product ID from URL:", id);
 
-  const handleAddToCart = () => {
-    if (!selectedSize) {
-      alert("Please select a size before adding to cart");
-      return;
-    }
-    console.log("Added to cart:", {
-      productId: product.id,
-      size: selectedSize,
-      quantity,
-    });
-  };
-
   const renderRatingStars = (rating) => {
     const stars = [];
     const fullStars = Math.floor(rating);
@@ -69,7 +59,46 @@ function Details() {
 
     return stars;
   };
+  const handleAddToCart = async (productId) => {
+    try {
+      setLoadingProducts((prev) => ({ ...prev, [productId]: true }));
+      setCartError(null);
 
+      const response = await fetch("http://localhost:8080/api/cart/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ productId }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add item to cart");
+      }
+
+      toast.success("Item added to cart successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    } catch (err) {
+      console.error("Error adding to cart:", err);
+      setCartError(err.message);
+      toast.error("Failed to add item to cart. Please try again.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    } finally {
+      setLoadingProducts((prev) => ({ ...prev, [productId]: false }));
+    }
+  };
   if (loading)
     return (
       <div className="min-h-[50vh] flex flex-col items-center justify-center">
@@ -108,6 +137,7 @@ function Details() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <ToastContainer />
       <button
         onClick={() => navigate(-1)}
         className="flex items-center text-gray-600 hover:text-black mb-6 transition-colors"
@@ -116,7 +146,6 @@ function Details() {
       </button>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        {/* Product Images */}
         <div className="space-y-4">
           <div className="bg-gray-100 rounded-lg overflow-hidden h-96 flex items-center justify-center">
             <img
@@ -208,7 +237,7 @@ function Details() {
 
           <div className="space-y-3">
             <button
-              onClick={handleAddToCart}
+              onClick={() => handleAddToCart(product.id)}
               className="w-full bg-black text-white py-3 rounded-md hover:bg-gray-800 transition-colors duration-300 font-medium flex items-center justify-center"
             >
               <FaShoppingCart className="mr-2" />
