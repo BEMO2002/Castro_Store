@@ -206,7 +206,7 @@ function Navbar() {
                   transition={{ delay: 0.15 }}
                 >
                   <Link
-                    to="/services"
+                    to="/service"
                     className="text-black link hover:text-primary transition-all block w-full text-center py-2 px-4"
                     onClick={() => setMobileMenuOpen(false)}
                   >
