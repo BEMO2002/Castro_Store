@@ -183,7 +183,7 @@ const ContactUs = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`w-full flex justify-center items-center py-3 px-6 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-black hover:bg-primary transition-all duration-300 focus:outline-none focus:ring-2 ${
+                    className={`w-full flex justify-center items-center py-3 px-6 border border-transparent rounded-md shadow-sm text-base font-medium bg-gradient-to-r from-black to-gray-400 text-white duration-300 focus:outline-none focus:ring-2 ${
                       isSubmitting ? "opacity-70 cursor-not-allowed" : ""
                     }`}
                   >

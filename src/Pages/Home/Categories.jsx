@@ -2,6 +2,8 @@ import React from "react";
 import suits from "../../assets/Categories/Classic Suit2.jpg";
 import jacket from "../../assets/Categories/jacket1.jpg";
 import boy from "../../assets/Categories/boy2.jpg";
+import { motion } from "framer-motion";
+import { fadeIn } from "../../Framermotion/varient";
 const Categories = () => {
   const categories = [
     {
@@ -79,18 +81,28 @@ const Categories = () => {
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <motion.div
+          variants={fadeIn("down", 0.2)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: false, amount: 0 }}
+          className="text-center mb-12"
+        >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
             Shop by Category
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Discover our premium collection of men's and boys' fashion
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {categories.map((category) => (
-            <div
+            <motion.div
+              variants={fadeIn("left", 0.2)}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: false, amount: 0 }}
               key={category.id}
               className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 group"
             >
@@ -135,12 +147,16 @@ const Categories = () => {
                   </button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         <div className="text-center mt-12">
-          <button
+          <motion.button
+            variants={fadeIn("down", 0.2)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: false, amount: 0 }}
             className="relative inline-block my-4 px-10 py-4 text-center bg-black text-white
             text-lg tracking-wider no-underline font-bold
             cursor-pointer transition-all duration-500 ease-out
@@ -149,7 +165,7 @@ const Categories = () => {
             active:scale-90"
           >
             View All Categories
-          </button>
+          </motion.button>
         </div>
       </div>
     </section>

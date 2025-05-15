@@ -15,7 +15,7 @@ import NotFound from "./Pages/NotFound";
 import Cart from "./Pages/Cart";
 import ContactUs from "./Pages/ContactUs";
 import OurServices from "./Pages/OurServices";
-
+import Checkout from "./Pages/Checkout";
 function App() {
   return (
     <BrowserRouter>
@@ -29,6 +29,7 @@ function App() {
           <Route path="/All" element={<ProductList />} />
           <Route path="/details/:id" element={<Details />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/service" element={<OurServices />} />

@@ -6,6 +6,7 @@ import MensSuits from "./MensSuits";
 import Show from "./Show";
 import Casual from "./Casual";
 import LuckySpin from "../LuckeySpin";
+import { CommingSoon } from "./CommingSoon";
 const Home = () => {
   UseTitle("Home");
   return (
@@ -15,6 +16,7 @@ const Home = () => {
       <MensSuits />
       <Show />
       <Casual />
+      <CommingSoon />
       {/* <ProductList /> */}
     </>
   );

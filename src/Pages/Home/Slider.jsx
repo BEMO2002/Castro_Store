@@ -9,7 +9,8 @@ import suit from "../../assets/pngtree-a-business-man-wearing-suit-and-tie-png-i
 import image4 from "../../assets/banner-image-2.png";
 import image5 from "../../assets/banner-image-1.png";
 import looder from "../../assets/preloader.svg";
-
+import { motion } from "framer-motion";
+import { fadeIn } from "../../Framermotion/varient";
 const ProfessionalCarousel = ({ items, autoPlay = true, interval = 5000 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -68,7 +69,13 @@ const ProfessionalCarousel = ({ items, autoPlay = true, interval = 5000 }) => {
             <div className="container mx-auto px-4 py-12">
               <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
                 {/* Text Section */}
-                <div className="w-full lg:w-1/2 z-50">
+                <motion.div
+                  variants={fadeIn("down", 0.2)}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: false, amount: 0 }}
+                  className="w-full lg:w-1/2 z-50"
+                >
                   {item.paragraph && (
                     <h2 className="text-5xl md:text-7xl font-semibold mb-4 text-black leading-tight">
                       {item.paragraph}
@@ -97,16 +104,14 @@ const ProfessionalCarousel = ({ items, autoPlay = true, interval = 5000 }) => {
                       <TfiArrowTopRight className="inline-block ml-2 text-xl" />
                     </button>
                   )}
-                </div>
-
-                {/* Image Section with Permanent Orange Background */}
-                <div className="w-full lg:w-1/2 relative">
-                  {/* Permanent Orange Background */}
-                  {
-                    // <div className="absolute inset-0 bg-white rounded-xl transform -rotate-6 scale-90"></div>
-                  }
-
-                  {/* Image Container */}
+                </motion.div>
+                <motion.div
+                  variants={fadeIn("right", 0.2)}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: false, amount: 0 }}
+                  className="w-full lg:w-1/2 relative"
+                >
                   <div className="relative w-full h-full flex items-center justify-center">
                     <img
                       src={item.image}
@@ -114,7 +119,7 @@ const ProfessionalCarousel = ({ items, autoPlay = true, interval = 5000 }) => {
                       className="w-full h-auto max-h-[800px] object-contain rounded-xl relative z-10"
                     />
                   </div>
-                </div>
+                </motion.div>
               </div>
             </div>
           </div>

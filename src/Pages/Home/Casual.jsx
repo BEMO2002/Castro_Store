@@ -5,7 +5,9 @@ import { MdOutlineInventory2, MdErrorOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-function MensSuits() {
+import { motion } from "framer-motion";
+import { fadeIn } from "../../Framermotion/varient";
+function Casual() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -70,7 +72,7 @@ function MensSuits() {
         },
         body: JSON.stringify({ productId }),
       });
-
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       if (!response.ok) {
         throw new Error("Failed to add item to cart");
       }
@@ -101,18 +103,28 @@ function MensSuits() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-40">
       <ToastContainer />
-      <div className="text-center mb-12">
+      <motion.div
+        variants={fadeIn("down", 0.2)}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: false, amount: 0 }}
+        className="text-center mb-12"
+      >
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
           Men's Causal Collection
         </h1>
         <p className="text-gray-600 max-w-2xl mx-auto">
           Premium quality jackets for every occasion and season
         </p>
-      </div>
+      </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {products.map((product) => (
-          <div
+          <motion.div
+            variants={fadeIn("right", 0.2)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: false, amount: 0 }}
             key={product.id}
             className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100 flex flex-col"
           >
@@ -164,7 +176,7 @@ function MensSuits() {
               <button
                 onClick={() => handleAddToCart(product.id)}
                 disabled={loadingProducts[product.id]}
-                className="w-full bg-black text-white py-2.5 rounded-md hover:bg-primary transition-colors duration-300 font-medium flex items-center justify-center"
+                className="w-full bg-gradient-to-r from-black to-gray-400 text-white py-2.5 rounded-md  duration-300 font-medium flex items-center justify-center"
               >
                 {loadingProducts[product.id] ? (
                   <FaSpinner className="animate-spin mr-2" />
@@ -174,7 +186,7 @@ function MensSuits() {
                 {loadingProducts[product.id] ? "Adding..." : "Add to Cart"}
               </button>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
       {products.length === 0 && !loading && (
@@ -192,4 +204,4 @@ function MensSuits() {
   );
 }
 
-export default MensSuits;
+export default Casual;

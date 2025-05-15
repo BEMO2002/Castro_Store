@@ -4,6 +4,8 @@ import { FaShoppingCart, FaStar, FaRegStar, FaArrowLeft } from "react-icons/fa";
 import { MdOutlineInventory2, MdErrorOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { motion } from "framer-motion";
+import { fadeIn } from "../Framermotion/varient";
 function Details() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -13,6 +15,7 @@ function Details() {
   const [quantity, setQuantity] = useState(1);
   const [loadingProducts, setLoadingProducts] = useState({});
   const [cartError, setCartError] = useState(null);
+
   const navigate = useNavigate();
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -145,7 +148,13 @@ function Details() {
         <FaArrowLeft className="mr-2" /> Back to Jackets
       </button>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <motion.div
+        variants={fadeIn("left", 0.2)}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: false, amount: 0 }}
+        className="grid grid-cols-1 lg:grid-cols-2 gap-12"
+      >
         <div className="space-y-4">
           <div className="bg-gray-100 rounded-lg overflow-hidden h-96 flex items-center justify-center">
             <img
@@ -255,9 +264,15 @@ function Details() {
             </div>
           )}
         </div>
-      </div>
+      </motion.div>
 
-      <div className="mt-16 border-t border-gray-200 pt-12">
+      <motion.div
+        variants={fadeIn("down", 0.2)}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: false, amount: 0 }}
+        className="mt-16 border-t border-gray-200 pt-12"
+      >
         <h2 className="text-2xl font-bold mb-8">Product Details</h2>
         <div className="grid md:grid-cols-2 gap-8">
           <div>
@@ -305,7 +320,7 @@ function Details() {
             </table>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

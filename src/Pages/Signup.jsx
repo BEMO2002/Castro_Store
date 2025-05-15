@@ -156,7 +156,7 @@ const Signup = () => {
           </div>
 
           <button
-            className="w-full bg-primary text-white py-2 rounded-lg font-semibold hover:bg-opacity-90 transition-all"
+            className="w-full bg-gradient-to-r from-black to-primary text-white  py-2 rounded-lg font-semibold hover:bg-opacity-90 transition-all"
             type="submit"
           >
             Sign Up

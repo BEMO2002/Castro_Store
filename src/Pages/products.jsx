@@ -3,9 +3,11 @@ import { FaShoppingCart, FaSpinner, FaSearch } from "react-icons/fa";
 import { GiClothes } from "react-icons/gi";
 import { MdOutlineInventory2, MdErrorOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import notfound from "../assets/Categories/notfound.webp";
+import { motion } from "framer-motion";
+import { fadeIn } from "../Framermotion/varient";
 function Girls() {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -89,22 +91,23 @@ function Girls() {
 
   const handleAddToCart = async (productId) => {
     try {
-      setLoadingProducts(prev => ({ ...prev, [productId]: true }));
+      setLoadingProducts((prev) => ({ ...prev, [productId]: true }));
       setCartError(null);
-      
-      const response = await fetch('http://localhost:8080/api/cart/add', {
-        method: 'POST',
+
+      const response = await fetch("http://localhost:8080/api/cart/add", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ productId }),
       });
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       if (!response.ok) {
-        throw new Error('Failed to add item to cart');
+        throw new Error("Failed to add item to cart");
       }
 
-      toast.success('Item added to cart successfully!', {
+      toast.success("Item added to cart successfully!", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -113,9 +116,9 @@ function Girls() {
         draggable: true,
       });
     } catch (err) {
-      console.error('Error adding to cart:', err);
+      console.error("Error adding to cart:", err);
       setCartError(err.message);
-      toast.error('Failed to add item to cart. Please try again.', {
+      toast.error("Failed to add item to cart. Please try again.", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -124,7 +127,7 @@ function Girls() {
         draggable: true,
       });
     } finally {
-      setLoadingProducts(prev => ({ ...prev, [productId]: false }));
+      setLoadingProducts((prev) => ({ ...prev, [productId]: false }));
     }
   };
 
@@ -148,16 +151,28 @@ function Girls() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-40">
       <ToastContainer />
-      <div className="text-center mb-12">
+      <motion.div
+        variants={fadeIn("down", 0.2)}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: false, amount: 0 }}
+        className="text-center mb-12"
+      >
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
           Girl's Causal Collection
         </h1>
         <p className="text-gray-600 max-w-2xl mx-auto">
           Premium quality jackets for every occasion and season
         </p>
-      </div>
+      </motion.div>
 
-      <div className="mb-8 p-4 bg-gray-50 rounded-lg">
+      <motion.div
+        variants={fadeIn("left", 0.2)}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: false, amount: 0 }}
+        className="mb-8 p-4 bg-gray-50 rounded-lg"
+      >
         <form
           onSubmit={handleSearch}
           className="flex flex-col md:flex-row gap-4"
@@ -208,11 +223,15 @@ function Girls() {
             Reset
           </button>
         </form>
-      </div>
+      </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {filteredProducts.map((product) => (
-          <div
+          <motion.div
+            variants={fadeIn("right", 0.2)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: false, amount: 0 }}
             key={product.id}
             className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100 flex flex-col"
           >
@@ -261,20 +280,20 @@ function Girls() {
                 </p>
               )}
 
-              <button 
+              <button
                 onClick={() => handleAddToCart(product.id)}
                 disabled={loadingProducts[product.id]}
-                className="w-full bg-black text-white py-2.5 rounded-md hover:bg-primary transition-colors duration-300 font-medium flex items-center justify-center"
+                className="w-full bg-gradient-to-r from-black to-gray-400 text-white py-2.5 rounded-md duration-300 font-medium flex items-center justify-center"
               >
                 {loadingProducts[product.id] ? (
                   <FaSpinner className="animate-spin mr-2" />
                 ) : (
                   <FaShoppingCart className="mr-2" />
                 )}
-                {loadingProducts[product.id] ? 'Adding...' : 'Add to Cart'}
+                {loadingProducts[product.id] ? "Adding..." : "Add to Cart"}
               </button>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 

@@ -1,10 +1,17 @@
-import React from "react";
 import { TfiArrowTopRight } from "react-icons/tfi";
+import { motion } from "framer-motion";
+import { fadeIn } from "../../Framermotion/varient";
 const Show = () => {
   return (
     <div className="relative">
       <div className="show ">
-        <div className="absolute -bottom-20 left-0 right-0 p-20 bg-white lg:w-[1200px] w-[400px] mx-auto bg-opacity-95 shadow-lg text-black flex flex-col items-center justify-center text-center">
+        <motion.div
+          variants={fadeIn("down", 0.2)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: false, amount: 0 }}
+          className="absolute -bottom-20 left-0 right-0 p-20 bg-white lg:w-[1200px] w-[400px] mx-auto bg-opacity-95 shadow-lg text-black flex flex-col items-center justify-center text-center"
+        >
           <h2 className="lg:text-5xl text-4xl font-semibold mb-2">
             End of Season Clearance Sale
           </h2>
@@ -27,7 +34,7 @@ const Show = () => {
             Shop Now
             <TfiArrowTopRight className="inline-block ml-2 text-xl" />
           </a>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

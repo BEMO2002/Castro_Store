@@ -4,15 +4,6 @@
 
 
 
-
-
-
-/*  */
-/* body { */
-/* min-height: 10000px; */
-/* } */
-
-
 .auth-container {
     min-height: 100vh;
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../src/assets/top-view-internet-communication-network.jpg');
@@ -30,4 +21,34 @@
 .form-container {
     background: rgba(255, 255, 255, 0.818);
     backdrop-filter: blur(10px);
+}
+
+
+
+.list-image div {
+    width: calc(100% / 4);
+    transition: width 1.5s;
+}
+
+.list-image .active {
+    width: 100%;
+}
+
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #000;
+    border-radius: 10px;
 }
