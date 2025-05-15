@@ -78,6 +78,14 @@ function Navbar() {
               Our Services
             </Link>
           </li>
+          <li>
+            <Link
+              to="/about"
+              className="text-black link hover:text-primary transition-all"
+            >
+              About
+            </Link>
+          </li>
 
           <li>
             <Link
@@ -198,11 +206,24 @@ function Navbar() {
                   transition={{ delay: 0.15 }}
                 >
                   <Link
-                    to="/whyCastro"
+                    to="/services"
                     className="text-black link hover:text-primary transition-all block w-full text-center py-2 px-4"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    Why Castro?
+                    Services
+                  </Link>
+                </motion.li>
+                <motion.li
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.15 }}
+                >
+                  <Link
+                    to="/about"
+                    className="text-black link hover:text-primary transition-all block w-full text-center py-2 px-4"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    About
                   </Link>
                 </motion.li>
                 <motion.li

@@ -8,7 +8,7 @@ export const Signout = () => {
 
   useEffect(() => {
     Signout();
-    toast.success("signed out successfully");
+    // toast.success("signed out successfully");
   }, []);
 
   return <Navigate to="/signin" />;
